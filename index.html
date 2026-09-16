@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BACE｜异常认知评估档案</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="noise"></div><div class="scanlines"></div>
+  <main class="shell">
+    <header><a class="brand" href="#" onclick="app.go('home')"><span>BACE</span><small>异常认知工程局</small></a><div class="access">PUBLIC ACCESS · CN-2026</div></header>
+
+    <section id="home" class="screen active hero">
+      <div class="archive-field" aria-hidden="true"><span class="orb orb-a"></span><span class="orb orb-b"></span><span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span><i class="circuit c1"></i><i class="circuit c2"></i><i class="circuit c3"></i></div>
+      <div class="hero-grid">
+        <div class="portal-copy">
+          <p class="eyebrow">BACE-DOC-2026-ASSESS-001 / RESTRICTED OBSERVATION</p>
+          <p class="status"><i></i> 档案入口已开启 · 正在接收新的感知样本</p>
+          <h1>你以为只是<br><em>“感觉敏锐”？</em></h1>
+          <p class="lead">也许，你只是还不知道自己属于哪一种异常感知类型。<br>BACE 将通过 20 项评估，为你生成个人档案、匹配 CLASS 角色，并锚定你的研究者身份。</p>
+          <button class="primary enter-button" onclick="app.go('register')"><span>▶</span> 开始建立我的 BACE 档案 <b>→</b></button>
+          <p class="entry-note">HUMAN SUBJECT / 20 PARAMETERS / 预计 3—5 分钟</p>
+        </div>
+        <aside class="access-panel">
+          <p class="panel-label">BACE ARCHIVE COVER / VERIFIED</p>
+          <figure class="badge-document"><img src="assets/bace-badge-cover.png" alt="BACE 异常认知工程局徽章封面"><figcaption>徽章封面已载入档案视觉系统</figcaption></figure>
+          <div class="panel-rule"></div>
+          <p class="panel-subhead">评估完成后将生成</p>
+          <dl><div><dt>01 / ARCHIVE ID</dt><dd>个人档案编号</dd></div><div><dt>02 / PRIMARY</dt><dd>主感知通道</dd></div><div><dt>03 / CLASS</dt><dd>角色身份匹配</dd></div><div><dt>04 / RESEARCHER</dt><dd>研究者身份卡</dd></div></dl>
+          <p class="panel-foot">在 BACE，感知可以被记录、命名，并找到同类。<br>评估仅用于世界观互动、娱乐与自我探索。</p>
+        </aside>
+      </div>
+      <div class="file-line"><span>COGNITIVE SIGNAL NETWORK ONLINE</span><span>NODE: CN-2026</span><span>ARCHIVE INTAKE ACTIVE</span></div>
+    </section>
+
+    <section id="register" class="screen dossier">
+      <p class="eyebrow">SUBJECT REGISTRATION / 01</p><h2>建立受试者档案</h2>
+      <p class="muted">信息仅保留在你的当前浏览器中，用于生成本次档案。</p>
+      <form id="registration" onsubmit="app.register(event)">
+        <label>受试者代号 <input id="alias" required maxlength="16" placeholder="例如：夜班观察员 / 北纬32号" autocomplete="off"><small class="field-note">建议使用“特征 + 身份”或“地点 + 编号”：如 梦境记录员、江北-07、静默观测者。</small></label>
+        <div class="two"><label>年龄区间 <select id="age"><option>18岁以下</option><option selected>18—24岁</option><option>25—30岁</option><option>31—40岁</option><option>41岁以上</option></select></label><label>性别 <select id="gender"><option selected>不透露</option><option>男</option><option>女</option><option>其他 / 自定义</option></select></label></div>
+        <div class="two"><label>所在地区 <input id="region" placeholder="例如：江苏·南京" maxlength="24"><small class="field-note">填写省/直辖市 · 城市即可，例如：江苏·南京。</small></label><label>职业 / 当前主要身份 <select id="occupation"><option selected value="未登记">暂不填写</option><option>在校学生</option><option>上班族 / 企业职员</option><option>体制内 / 公共服务</option><option>专业技术 / 工程 / 生产</option><option>商业 / 销售 / 服务业</option><option>教育 / 医疗 / 社会服务</option><option>内容创作 / 自由职业</option><option>个体经营 / 创业者</option><option>待业 / 转型中 / 退休</option><option>其他</option></select><small class="field-note">按你当前最主要的状态选择即可，不需要精确到具体行业。</small></label></div>
+        <fieldset><legend>进入档案前，你更接近哪种状态？</legend><label class="radio"><input type="radio" name="identity" value="观察者" checked> 普通观察者</label><label class="radio"><input type="radio" name="identity" value="体验者"> 异常体验者</label><label class="radio"><input type="radio" name="identity" value="研究者"> 研究兴趣者</label></fieldset>
+        <button class="primary" type="submit">生成档案编号并开始 <b>→</b></button>
+      </form>
+    </section>
+
+    <section id="test" class="screen assessment">
+      <div class="test-top"><div><p class="eyebrow" id="phase">COGNITIVE SCAN / 感官与环境信号</p><p class="case-id" id="caseId"></p></div><div class="progress-wrap"><span id="percent">PROCESS: 05%</span><div class="progress"><i id="progress"></i></div></div></div>
+      <article class="question-card"><span id="questionCode">A-01</span><h2 id="questionText"></h2><p class="scale-hint">请选择最贴近你实际体验的程度</p><div class="answers" id="answers"></div></article>
+      <div class="test-footer"><button class="text-button" onclick="app.previous()" id="prev">← 返回上一题</button><span>所有题目均可修改</span></div>
+    </section>
+
+    <section id="analyze" class="screen analysis"><p class="eyebrow">BACE CORE / PROCESSING</p><div class="spinner">∆</div><h2>正在生成认知档案</h2><div class="log" id="log"></div></section>
+
+    <section id="result" class="screen result">
+      <div class="result-head"><p class="eyebrow">SUBJECT PROFILE / GENERATED</p><button class="text-button" onclick="app.restart()">重新建立档案 ↗</button></div>
+      <div class="profile-grid"><aside class="identity-card"><span class="stamp" id="sampleLevel">RESPONSE GRADE</span><p>受试者</p><h2 id="resultAlias"></h2><div class="role-mark" id="roleMark">05</div><p class="mono" id="resultId"></p><p id="resultDate"></p></aside><article class="role-card"><p class="eyebrow">PRIMARY CLASS / RESEARCHER IDENTITY</p><h1 id="roleName"></h1><h3 id="roleCode"></h3><p id="roleIntro"></p><div class="tag-row" id="roleTags"></div><blockquote id="roleQuote"></blockquote><p class="similarity" id="similarity"></p></article></div>
+      <section class="dimensions"><div class="section-title"><span>PRIMARY TRAITS / FREE ARCHIVE</span><small>本次倾向值，非诊断结论</small></div><div id="dimensionBars"></div></section>
+      <section class="safety-section priority-safety"><div class="section-title"><span>SAFETY &amp; RESPONSE GUIDE</span><small>管理体验，不替代医疗或心理支持</small></div><div class="safety-grid"><article><b>01 / 记录，不急于定论</b><p>把时间、地点、睡眠、身体状态与感受分开写下；先保留信息，再决定怎样解释。</p></article><article><b>02 / 降低信息密度</b><p>当感受过强时，离开高刺激场景、补水、休息、回到熟悉的日常任务，给自己一个复位窗口。</p></article><article><b>03 / 保持现实校验</b><p>向可信任的人核对可验证的信息；不要因一次体验作出重大的健康、财务或人际决定。</p></article><article><b>04 / 需要时优先求助</b><p>若出现持续困扰、睡眠明显受影响、感知体验突增，或你担心自己或他人安全，请尽快联系当地医疗或心理健康专业支持。</p></article></div></section>
+      <section class="free-insight"><div class="section-title"><span>PERSONAL SIGNAL NETWORK / FREE</span><small>12 维节点以本次答题倾向形成的关系示意</small></div><div id="networkGraph" class="network-graph"></div><div class="insight-grid"><article><p class="eyebrow">CLASS RELATION</p><h2>主—次—潜在结构</h2><p id="classRelation"></p></article><article><p class="eyebrow">FORMATION PATH</p><h2>你的形成路径</h2><p id="formationPath"></p></article><article><p class="eyebrow">OBSERVATION NOTE</p><h2>当前观察提示</h2><p id="observationNote"></p></article></div></section>
+      <section class="radar-section"><div class="section-title"><span>COGNITIVE ATTRIBUTE MATRIX / FREE</span><small>12 维本次感知分布</small></div><div id="radarChart" class="radar-chart"></div></section>
+      <section class="library-section"><details><summary><span>CLASS MATRIX-12 / OPEN INDEX</span><small>展开查看 12 种 BACE 身份接口</small></summary><div id="classLibrary" class="class-library"></div></details></section>
+      <section class="term-section"><details><summary><span>TERMS &amp; CULTURAL REFERENCE INDEX</span><small>展开术语与跨文化检索索引</small></summary><div class="term-table"><div><b>BACE 术语</b><b>说明</b><b>文化检索线索</b></div><div><span>梦境通道</span><span>对梦境叙事、记忆与象征的记录倾向。</span><span>梦兆叙事 / dream incubation / 梦境日记</span></div><div><span>空间感知</span><span>对路径、建筑与场所氛围的注意倾向。</span><span>风水语境 / genius loci / place attachment</span></div><div><span>家族印记</span><span>把个人经验放入家族故事与成长脉络的倾向。</span><span>家谱 / 口述史 / ancestor traditions</span></div><div><span>环境共振</span><span>对自然、天气与场域变化的体验记录。</span><span>地景叙事 / landscape studies / environmental perception</span></div><div><span>认知训练</span><span>通过记录、冥想、复盘等方式进行自我校准。</span><span>观照练习 / contemplative practice / self-observation</span></div></div></details></section>
+      <section class="findings"><div><p class="eyebrow">FREE ARCHIVE / IDENTITY NOTE</p><h2>你的 BACE 身份结论</h2><p id="summary"></p><p class="card-note">本次免费档案已包含：12 种 CLASS 索引、12 维图谱、感知网络、三层角色结构与基础角色卡。</p></div><div class="next-level"><span>FULL ARCHIVE / ¥2.9</span><p>支付后自动生成个人 PDF、完整角色卡、推荐协议包，以及带档案编号的后续任务入口。</p><button class="text-button locked" type="button" onclick="app.showUnlock()">领取完整身份档案 · ¥2.9</button></div></section>
+      <button class="primary print" onclick="app.downloadCard()">保存基础角色卡</button>
+    </section>
+  </main>
+  <footer>BACE · 异常认知工程局 / 本原型仅用于体验展示</footer>
+  <script src="app.js"></script>
+</body>
+</html>
+
