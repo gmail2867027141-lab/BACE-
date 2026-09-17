@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=20260917-free-share" />
 </head>
 <body>
   <div class="noise"></div><div class="scanlines"></div>
@@ -27,7 +27,7 @@
         </div>
         <aside class="access-panel">
           <p class="panel-label">BACE ARCHIVE COVER / VERIFIED</p>
-          <figure class="badge-document"><img src="assets/bace-badge-cover.jpg" alt="BACE 异常认知工程局徽章封面"></figure>
+<figure class="badge-document"><img src="assets/bace-badge-cover.png" alt="BACE 异常认知工程局徽章封面"></figure>
           <div class="panel-rule"></div>
           <p class="panel-subhead">评估完成后将生成</p>
           <dl><div><dt>01 / ARCHIVE ID</dt><dd>个人档案编号</dd></div><div><dt>02 / PRIMARY</dt><dd>主感知通道</dd></div><div><dt>03 / CLASS</dt><dd>角色身份匹配</dd></div><div><dt>04 / RESEARCHER</dt><dd>研究者身份卡</dd></div></dl>
@@ -66,12 +66,12 @@
       <section class="radar-section"><div class="section-title"><span>COGNITIVE ATTRIBUTE MATRIX / FREE</span><small>12 维本次感知分布</small></div><div id="radarChart" class="radar-chart"></div></section>
       <section class="library-section"><details><summary><span>CLASS MATRIX-12 / OPEN INDEX</span><small>展开查看 12 种 BACE 身份接口</small></summary><div id="classLibrary" class="class-library"></div></details></section>
       <section class="term-section"><details><summary><span>TERMS &amp; CULTURAL REFERENCE INDEX</span><small>展开术语与跨文化检索索引</small></summary><div class="term-table"><div><b>BACE 术语</b><b>观察性说明</b><b>文化检索线索</b></div><div><span>T1 灵视</span><span>对视觉细节、光影、轮廓和图像联想的注意倾向。</span><span>视觉象征 / visions in folklore / 图像叙事</span></div><div><span>T2 灵听</span><span>对声音层次、节奏与细微听觉线索的注意倾向。</span><span>聆听传统 / auditory imagery / 声景研究</span></div><div><span>T3 灵嗅 / 灵触</span><span>从气味、温度、材质和触感中记录环境线索的倾向。</span><span>感官民族志 / olfactory memory / 触觉记忆</span></div><div><span>T4 空间感知</span><span>对路径、建筑、方位与场所氛围的注意倾向。</span><span>风水语境 / genius loci / place attachment</span></div><div><span>T5 预知直觉</span><span>对模式、时机与预感的记录倾向；适合与现实信息交叉核对。</span><span>预兆叙事 / intuition studies / pattern recognition</span></div><div><span>T6 梦境通道</span><span>对梦境叙事、醒后记忆与象征联系的记录倾向。</span><span>梦兆叙事 / dream incubation / 梦境日记</span></div><div><span>T7 共情感知</span><span>对关系、情绪与群体氛围变化的注意倾向。</span><span>共情叙事 / affect studies / 情绪地理</span></div><div><span>T8 身体信号</span><span>对疲劳、紧张、放松与身体反应的自我观察倾向。</span><span>身体经验 / interoception / somatic awareness</span></div><div><span>T9 裂隙感知</span><span>对记忆、经历或空间叙事中断层与未闭合线索的注意倾向。</span><span>阈限叙事 / liminality / 断裂记忆</span></div><div><span>T10 家族印记</span><span>把个人体验放入家族故事、旧物与成长脉络中理解的倾向。</span><span>家谱 / 口述史 / ancestor traditions</span></div><div><span>T11 环境共振</span><span>对自然、天气、光线与场域变化进行体验记录的倾向。</span><span>地景叙事 / landscape studies / environmental perception</span></div><div><span>T12 认知训练</span><span>通过记录、复盘、冥想或阅读建立自我校准的倾向。</span><span>观照练习 / contemplative practice / self-observation</span></div></div></details></section>
-      <section class="findings"><div><p class="eyebrow">FREE ARCHIVE / IDENTITY NOTE</p><h2>你的 BACE 身份结论</h2><p id="summary"></p><p class="card-note">本次免费档案已包含：12 种 CLASS 索引、12 维图谱、感知网络、三层角色结构与基础角色卡。</p></div><div class="next-level"><span>FULL ARCHIVE / ¥2.9</span><p>支付后自动生成个人 PDF、完整角色卡、推荐协议包，以及带档案编号的后续任务入口。</p><button class="text-button locked" type="button" onclick="app.showUnlock()">领取完整身份档案 · ¥2.9</button></div></section>
-      <button class="primary print" onclick="app.downloadCard()">保存 / 分享基础角色卡</button>
+      <section class="findings free-identity"><div><p class="eyebrow">FREE ARCHIVE / IDENTITY NOTE</p><h2>你的 BACE 身份结论</h2><p id="summary"></p><p class="card-note">本次免费档案已包含：12 种 CLASS 索引、12 维图谱、感知网络、三层角色结构与基础角色卡。</p></div><section class="archive-check" aria-labelledby="calibrationTitle"><p class="eyebrow">ARCHIVE CALIBRATION</p><h2 id="calibrationTitle">这份档案像真实的你吗？</h2><p>请用近期真实体验校对它，而不是急于确认一种身份。</p><label><input type="checkbox" data-calibration> 前 3 项特质在近三个月的不同情境中反复出现。</label><label><input type="checkbox" data-calibration> 角色描述能解释一部分体验，也允许我保留不相符的部分。</label><label><input type="checkbox" data-calibration> 连续记录 7 天后，我仍能发现相近的体验线索。</label><p id="calibrationResult" class="calibration-result">勾选后生成本次观察提示。</p></section></section>
+      <section class="bace-continuation" aria-label="BACE 后续入口"><article class="bace-about"><p class="eyebrow">ABOUT BACE</p><h2>一份公开的观察档案</h2><p>BACE 是一个以异常认知为主题的原创档案世界。20 题测试是一份公开观察记录；未来的 70 题完整版将进一步呈现更细的感知结构、角色关系与档案路径。</p></article><article class="share-dossier"><p class="eyebrow">TAKE YOUR IDENTITY</p><h2>带走你的研究者身份</h2><p>把这份档案分享给朋友：他们会被记录为哪一种 CLASS？</p><div class="share-actions"><button class="primary" type="button" onclick="app.shareArchive()">分享我的研究者档案</button><button class="secondary-action" type="button" onclick="app.copyTestLink()">复制测试链接</button><button class="secondary-action" type="button" onclick="app.downloadCard()">保存角色卡图片</button></div><p id="shareStatus" class="share-status" aria-live="polite"></p></article><article class="xhs-follow"><p class="eyebrow">NEXT ARCHIVE</p><h2>等待 70 题完整版</h2><p>在小红书搜索并关注「异常认知档案室」，等待 70 题完整版、12 CLASS 档案与后续观察员任务。</p><p class="xhs-id">小红书号：18415880263</p><button class="secondary-action" type="button" onclick="app.copyXhsId()">复制小红书号</button></article></section>
     </section>
   </main>
   <footer>BACE · 异常认知工程局 / 本原型仅用于体验展示</footer>
-  <script src="app.js"></script>
+  <script src="app.js?v=20260917-free-share"></script>
 </body>
 </html>
 
