@@ -48,6 +48,7 @@
     'CLASS-011':{en:'ENVIRONMENTAL RESONANCE PROFILE',type:'自然共振型',mark:'11',folk:'环境共振体质',summary:'天气、季节、地貌、自然声场和城市环境会明显改变你的注意与能量状态，空间感知和体感共同参与判断。',quote:'“环境改变状态，状态也改变你看到的环境。”',interface:'自然—环境场接收',path:['天气地貌','状态变化','重复地点','节律校准'],phenomena:[['ENV-001','天气响应','天气变化前后情绪或身体状态明显改变'],['LAND-002','地貌共振','山林、水域、车站或街区带来稳定感受'],['SEA-003','季节回波','特定季节反复出现相近梦境、情绪或记忆']],manifest:['对天气和光线变化敏感','在自然环境中恢复更快','特定地点带来稳定状态','反复注意同一路线变化','季节会改变梦境与情绪','愿意长期记录场域差异'],triggers:'气压变化、季节交替、山林水域、旧街区、交通节点与持续室内生活。',resource:'生态观察、节律感知、地点比较与恢复环境选择。',risks:[['气象因素','气压、温度和光照会直接影响身体状态。'],['生活节律','作息变化可能与季节同时发生。'],['地点偏好','熟悉与安全感会被误认作特殊共振。'],['相关非因果','同时发生不代表环境造成全部体验。']],task:'七日环境网格：固定时间记录天气、地点、睡眠、身体和情绪，比较同地不同日与异地同状态。'},
     'CLASS-012':{en:'COGNITIVE CALIBRATION PROFILE',type:'多通道校准型',mark:'12',folk:'研究型通灵体质',summary:'你最突出的不是单一感官，而是记录、分类、复盘与修正。你能够把多通道体验组织成可持续观察的档案。',quote:'“最可靠的天赋，是知道何时修正解释。”',interface:'多通道研究接收',path:['体验采集','分类建模','反证核验','持续修订'],phenomena:[['CAL-001','主动校准','强烈体验后会寻找事实、替代解释与反例'],['LOG-002','档案化','把梦、巧合、身体和场域体验持续记录'],['MUL-003','多通道联动','多个感知入口在同一事件中共同出现']],manifest:['习惯记录和分类体验','愿意寻找不同解释','能区分感受与事实','新证据出现时愿意修正','多种通道相对均衡','重视方法胜过单次神奇体验'],triggers:'长期研究、密集阅读、冥想记录、复杂事件、多源信息与重复复盘。',resource:'研究日志、结构建模、现实校准与跨通道整合。',risks:[['过度分析','持续建模可能让普通体验变得沉重。'],['体系偏见','已有术语会影响新体验的描述。'],['确认循环','只收集支持模型的材料会让模型封闭。'],['生活脱离','研究应服务日常，而不是替代日常。']],task:'七日双假设日志：每条体验同时写“BACE解释”和“普通现实解释”，寻找能区分两者的新证据。'}
   };
+  const BASELINE={en:'BASELINE OBSERVATION PROFILE',type:'基础观察型',mark:'00',folk:'基础观察样本',summary:'本次记录没有形成足够突出的主导通道。你的回答更接近日常感知基线，暂时不应被强行归入十二种异常认知角色。',quote:'“没有形成异常峰值，也是一份有效记录。”',interface:'日常感知基线',path:['日常刺激','一般注意','现实判断','持续观察'],phenomena:[['BASE-001','低频体验','各类异常体验均未形成稳定高频响应'],['BASE-002','分布平缓','十二通道之间没有明显突出的主入口'],['BASE-003','待观察状态','当前状态不足以支持更具体的角色归档']],manifest:['大部分体验处于日常可解释范围','没有持续突出的单一感知入口','对异常线索的响应频率较低','能够维持普通现实判断','可能受当前状态和答题时段影响','适合先记录再决定是否复测'],triggers:'状态变化、睡眠波动、重大生活事件或进入陌生环境后，可重新观察。',resource:'现实判断、稳定边界、低过载风险与开放观察。',risks:[['强行认领','不要因为期待某个角色而修改真实回答。'],['一次定型','低响应只代表当前记录，不是永久身份。'],['忽略状态','疲劳、压力和答题理解会改变结果。'],['神秘化压力','不需要通过异常身份证明个人价值。']],task:'七日日常基线记录：只记录确实发生的体验、当时状态和现实来源；若仍无稳定峰值，保留基础观察身份。'};
   const LABEL=['从未符合','极少符合','偶尔符合','有时符合','经常符合','高度符合'];
   const $=s=>document.querySelector(s);
   const $$=s=>Array.from(document.querySelectorAll(s));
@@ -121,16 +122,21 @@
       const traits=Object.fromEntries(TRAITS.map(([id])=>[id,0]));
       const metrics={outer:[],permeability:[],filter:[],reset:[],evidence:[],meaning:[],heritage:[],record:[],calibrate:[]};
       QUESTIONS.forEach((q,i)=>{const v=this.answers[i]??0;if(q.trait)traits[q.trait]+=v*4;else metrics[q.metric].push(v*20);});
-      Object.keys(traits).forEach(k=>traits[k]=Math.round(traits[k]/5));
+      // 每个维度有5题：单题0—5分乘4，五题合计即为0—100，不能再次除以5。
+      Object.keys(traits).forEach(k=>traits[k]=Math.max(0,Math.min(100,Math.round(traits[k]))));
       Object.keys(metrics).forEach(k=>metrics[k]=average(metrics[k]));
-      const roles=ROLE_MATRIX.map(([id,name,keys])=>({id,name,score:Math.round(traits[keys[0]]*.4+traits[keys[1]]*.32+traits[keys[2]]*.28)})).sort((a,b)=>b.score-a.score);
+      let roles=ROLE_MATRIX.map(([id,name,keys])=>({id,name,score:Math.round(traits[keys[0]]*.4+traits[keys[1]]*.32+traits[keys[2]]*.28)})).sort((a,b)=>b.score-a.score);
       const top=Object.entries(traits).map(([id,score])=>({id,name:TRAITS.find(x=>x[0]===id)[1],score})).sort((a,b)=>b.score-a.score);
+      const values=Object.values(traits),mean=average(values),std=Math.sqrt(values.reduce((sum,v)=>sum+(v-mean)**2,0)/values.length);
+      const hybrid=mean>=50&&std<=12&&values.filter(v=>v>=50).length>=8;
+      if(hybrid){const h=roles.find(x=>x.id==='CLASS-012');h.score=Math.max(h.score,Math.min(96,Math.round(mean+6)));roles=[h,...roles.filter(x=>x.id!=='CLASS-012')].sort((a,b)=>b.score-a.score||Number(b.id==='CLASS-012')-Number(a.id==='CLASS-012'));}
       const spread=roles[0].score-roles[1].score;
-      return{traits,metrics,roles,top,spread};
+      return{traits,metrics,roles,top,spread,hybrid,mean,std:Math.round(std)};
     },
     present(){
-      const r=this.result,p=r.roles[0],secondary=r.roles[1],latent=r.roles[2],d=ROLE[p.id],top=r.top;
+      const r=this.result,p=r.roles[0],secondary=r.roles[1],latent=r.roles[2],top=r.top;
       const baseline=top[0].score<35;
+      const d=baseline?BASELINE:ROLE[p.id];
       const grade=top.filter(x=>x.score>=80).length>=3?'L4 / 特殊观察样本':top[0].score>=80?'L3 / α级高响应样本':top[0].score>=60?'L2 / β级活跃样本':top[0].score>=40?'L1 / γ级敏感样本':'L0 / 基础观察样本';
       const m=r.metrics;
       const sheath=m.permeability>=65&&m.filter<55?'高通透响应型':m.filter>=65&&m.reset>=55?'选择性通透型':m.permeability<45?'高屏蔽型':'复位观察型';
@@ -155,7 +161,7 @@
       this.renderMatrix(r.traits);
       const relation=$$('.relation-grid .note');relation[0].querySelector('p:last-child').innerHTML=baseline?'当前不强行分配十二 CLASS。建议先记录高频体验，再于不同睡眠、压力和环境状态下复测。':`<b>主角色：${p.name}</b>负责${d.interface}；<b>次角色：${secondary.name}</b>提供第二组解释通道；<b>潜在角色：${latent.name}</b>描述较低频但可能在特定情境出现的结构。三者不是互相排斥的人格标签，而是同一感知网络中的主入口、协同层与背景层。`;
       relation[1].querySelector('p:last-child').textContent=d.task;
-      this.updateExpanded(d,r,{p,secondary,latent,grade,shell,sheath,belief,program});
+      this.updateExpanded(d,r,{p,secondary,latent,grade,shell,sheath,belief,program,baseline});
       const safeRecord={id:this.id,person:{...this.person,wechat:this.person.wechat?'已登记（仅本设备）':''},result:r,generated:new Date().toISOString()};
       localStorage.setItem('bace-full70',JSON.stringify(safeRecord));localStorage.removeItem('bace-70-draft');this.go('result');
     },
@@ -171,15 +177,21 @@
       $('.trait-grid').innerHTML=TRAITS.map(([id,name])=>`<div class="trait"><span>${id} ${name}</span><i><b style="width:${traits[id]}%"></b></i><strong>${traits[id]}%</strong></div>`).join('');
     },
     updateExpanded(d,r,x){
-      $('.verdict-main .archive-code').textContent=`${x.p.id} / ${d.type}`;
+      const classId=x.baseline?'CLASS-000':x.p.id;
+      const className=x.baseline?'基础观察样本':x.p.name;
+      $('.verdict-main .archive-code').textContent=`${classId} / ${d.type}`;
       $('.verdict-main h2').innerHTML=`你的灵异体质原型：<em>${esc(d.folk)}</em>`;
       $('.verdict-main h2').nextElementSibling.textContent=`在 BACE 世界观中，你更接近「${d.type}」：${d.summary} 这是超自然叙事框架下的角色解释，不是对通灵能力的事实认证。`;
       const dd=$$('.verdict-meta dd');if(dd[0])dd[0].textContent=d.interface;if(dd[1])dd[1].textContent=x.shell;if(dd[2])dd[2].textContent=x.sheath;if(dd[3])dd[3].textContent=x.belief;if(dd[4])dd[4].textContent=x.grade;
       $('.phenomena-grid').innerHTML=d.phenomena.map((p,i)=>`<article><span>0${i+1} / ${esc(p[0])}</span><h3>${esc(p[1])}</h3><p>${esc(p[2])}</p><b>${i===0?'主现象':'协同现象'}</b><em>${i===0?'高关联':'中度关联'}</em></article>`).join('');
+      const evidenceHeading=$('.evidence-section .section-heading h2');
+      if(evidenceHeading)evidenceHeading.textContent=x.baseline?'为什么暂不分配十二种CLASS':`为什么被归档为“${className}”`;
+      const interfaceCaption=$('.interface-section .section-heading > p');
+      if(interfaceCaption)interfaceCaption.textContent=`灵骸外壳：${x.baseline?'基础观察接口':x.shell}`;
       const evidence=$('.evidence-grid');
       evidence.innerHTML=`<article><span>01 / 主通道</span><h3>${r.top[0].id} ${r.top[0].name} · ${r.top[0].score}%</h3><p>构成主要信息入口，决定你最先注意到什么。</p></article><article><span>02 / 协同通道</span><h3>${r.top[1].id} ${r.top[1].name} · ${r.top[1].score}%</h3><p>负责放大、连接或解释主通道线索。</p></article><article><span>03 / 背景通道</span><h3>${r.top[2].id} ${r.top[2].name} · ${r.top[2].score}%</h3><p>在特定环境、压力或睡眠条件下更容易出现。</p></article><article><span>04 / 分类区分度</span><h3>${r.spread>=10?'高':r.spread>=5?'中':'低'} · 差值 ${r.spread}</h3><p>${r.spread<5?'主、次角色高度重叠，应把结果理解为复合结构。':'主角色与相邻角色之间已形成可辨识边界。'}</p></article>`;
       const nodes=$$('.signal-path div');d.path.forEach((v,i)=>{nodes[i].querySelector('b').textContent=v;nodes[i].querySelector('small').textContent=['原始刺激或经历进入注意范围','在主通道中形成可感知线索','经由鞘与信念岩层被赋予意义','通过记录、对照与反证完成校准'][i];});
-      const dual=$$('.dual-reading article');dual[0].querySelector('h3').textContent=d.interface;dual[0].querySelector('p:last-child').textContent=`在 BACE 超自然世界观中，${d.summary} 相关体验会被暂时归入${d.phenomena.map(x=>x[1]).join('、')}等现象档案，等待持续观察。`;
+      const dual=$$('.dual-reading article');dual[0].querySelector('h3').textContent=d.interface;dual[0].querySelector('p:last-child').textContent=x.baseline?`在 BACE 超自然世界观中，基础观察样本不会被强行解释为梦行者或其他角色。${d.summary}`:`在 BACE 超自然世界观中，${d.summary} 相关体验会被暂时归入${d.phenomena.map(x=>x[1]).join('、')}等现象档案，等待持续观察。`;
       dual[1].querySelector('h3').textContent='普通现实解释必须同时保留';dual[1].querySelector('p:last-child').textContent='睡眠、压力、记忆重构、环境刺激、感官错觉与期待效应都可能产生相似体验。BACE 要求两套解释并列记录，不能把相关性直接当因果。';
       $('.manifest-grid ul').innerHTML=d.manifest.map(v=>`<li>${esc(v)}</li>`).join('');
       const manifestAside=$('.manifest-grid aside');const mp=manifestAside.querySelectorAll('p');manifestAside.querySelectorAll('h3')[0].nextElementSibling.textContent=d.triggers;manifestAside.querySelectorAll('h3')[1].nextElementSibling.textContent=d.resource;
